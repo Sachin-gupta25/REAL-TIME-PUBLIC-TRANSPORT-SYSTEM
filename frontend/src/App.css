@@ -1,0 +1,210 @@
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  margin: -20px -20px 20px -20px;
+}
+
+.app-header h1 {
+  margin: 0;
+  color: #61dafb;
+}
+
+.install-button {
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.install-button:hover {
+  background-color: #21a0c4;
+}
+
+/* Home Page Styles */
+.home {
+  padding: 40px 20px;
+}
+
+.home h1 {
+  color: #282c34;
+  margin-bottom: 10px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.feature {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.feature h3 {
+  color: #282c34;
+  margin-bottom: 15px;
+}
+
+.feature p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Login Page Styles */
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.login-container h2 {
+  color: #282c34;
+  margin-bottom: 30px;
+}
+
+.login-container form div {
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #61dafb;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-container button:hover {
+  background-color: #21a0c4;
+}
+
+/* Dashboard Styles */
+.dashboard {
+  padding: 20px;
+}
+
+.dashboard h2 {
+  color: #282c34;
+  margin-bottom: 30px;
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.trip-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.trip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.trip-card h3 {
+  color: #282c34;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.trip-card p {
+  margin: 8px 0;
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+  
+  .app-header {
+    margin: -10px -10px 20px -10px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .features {
+    grid-template-columns: 1fr;
+  }
+  
+  .trips-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .login-container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+}
+
+/* PWA Specific Styles */
+@media (display-mode: standalone) {
+  .app-header {
+    padding-top: calc(20px + env(safe-area-inset-top));
+  }
+}
+
+/* Loading and Error States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #666;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  border: 1px solid #f5c6cb;
+}

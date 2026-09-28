@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  database:
+    image: mysql:8.0
+    container_name: yatra-yatri-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: yatra_yatri_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    networks:
+      - yatra-yatri-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  # Backend Service
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: yatra-yatri-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_NAME: yatra_yatri_db
+      DB_USERNAME: admin
+      DB_PASSWORD: password
+      JWT_SECRET: mySecretKey123456789012345678901234567890
+      CORS_ORIGINS: http://localhost:3000,http://localhost:80
+      WEBSOCKET_ORIGINS: http://localhost:3000,http://localhost:80
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - yatra-yatri-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Service
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    container_name: yatra-yatri-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - yatra-yatri-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  yatra-yatri-network:
+    driver: bridge
